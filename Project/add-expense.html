@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Test</title>
-	  
-
+	<title>Add Expense</title>
 	<script type="text/javascript" src="scripts/local-storage-extensions.js"></script>	
 	<script type="text/javascript" src="scripts/storage.js"></script>
 	<script type="text/javascript" src="scripts/expenses.js"></script>
@@ -13,54 +11,14 @@
 	<link rel="stylesheet" href="https://d10ajoocuyu32n.cloudfront.net/mobile/1.3.1/jquery.mobile-1.3.1.min.css">
 	  
 	  <!-- jQuery and jQuery Mobile -->
-	  <script src="https://d10ajoocuyu32n.cloudfront.net/jquery-1.9.1.min.js"></script>
-	  <script src="https://d10ajoocuyu32n.cloudfront.net/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+   <script src="https://d10ajoocuyu32n.cloudfront.net/jquery-1.9.1.min.js"></script>
+   <script src="https://d10ajoocuyu32n.cloudfront.net/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
 
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="https://d10ajoocuyu32n.cloudfront.net/mobile/1.3.1/jquery.mobile-1.3.1.min.css" /> 
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
-    <style>
-/*	    div > ul > li a > span{
-	        display: inline-block;
-	        float: right;
-	        color: #61B329;
-	        font-size: 14px;
-	        text-shadow: 1px 1px 0px green;
-	    }
-
-	    div ul li a strong{
-	    	position: absolute;
-	    	left: 40%;
-	    }
-
-	   span.totalAccountsSum{
-
-	        display: inline-block;
-	        float: right;
-	        color: white;
-	    }
-
-	    .not-added-item{
-			box-shadow: inset 0px 0px 60px green;	    	
-	    }
-*/
-/*	    input{
-	    	width: 50%;
-	    	border-radius: 10px;
-	    	height: 35px;
-	    	background: green;
-	    	opacity: 0.6;
-	    	font-size: 22px;
-	    	color: white;
-	    	padding-left: 20px;
-	    }*/
-
-
-	   
-
-   </style>
    <script type="text/javascript">
 	   $(function () {
 	            $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
@@ -134,9 +92,6 @@
             <input name="" id="amount" placeholder="" value="" type="text">
         </div>
     </div>
-
-
-
  	<div data-role="content">
         <div data-role="fieldcontain" style="width:40%; display: inline-block">
             <label for="paymentMethods">
@@ -196,81 +151,6 @@
         </h3>
     </div>
 </div>
-	<script type="text/javascript">
-
-	$categoriesMenu = $("#categories").on('change', function(){
-		$category = $("#categories").val();
-		$allCategories = storage.load("categories");
-		$("#subcategories").empty();
-		for (var i = 0; i < $allCategories[$category].length; i++) {
-			$subcategory = $allCategories[$category][i];
-			$option = $("<option></option>");
-			$option.val($subcategory);
-			$option.text($subcategory);
-			$("#subcategories").append($option);
-		};
-		// $($("#subcategories option")[0]).text("wtf");
-	})
-
-	$paymentMethodsMenu = $("#paymentMethods").on('change', function(){
-		$paymentMethod = $("#paymentMethods").val();
-		console.log($paymentMethod);
-		$allPaymentMethods = storage.load("accounts");
-		$("#accountsMenu").empty();
-		for (var i = 0; i < $allPaymentMethods[$paymentMethod].length; i++) {
-			$account = $allPaymentMethods[$paymentMethod][i].name;
-			$option = $("<option></option>");
-			$option.val($account);
-			$option.text($account);
-			$("#accountsMenu").append($option);
-		};
-	})
-
-	$("#add-expense-button").on('click', function(){
-		$category = $("#categories").val();
-		$subCat = $("#subcategories").val();
-		$date = $("#datepicker").val();;
-        console.log($date);
-		$amount = $("#amount").val();
-		$paymentMethod = $("#paymentMethods").val();
-		$account = $("#accountsMenu").val();
-		$notes = $("#notes").val();
-		expenses.addExpense($category, $subCat, $date, $amount, $paymentMethod, $account, $notes);
-		document.location.href="index.html"
-	})
-
-    $("#accountsMenu").on('change', function(){
-        $type = $("#paymentMethods").val();
-        $name = $("#accountsMenu").val();
-        $accounts = storage.load("accounts");
-
-        for (var i = 0; i < $accounts[$type].length; i++) {
-            if ($accounts[$type][i].name == $name) {
-                $balance = $accounts[$type][i].balance;
-                $("#availableMoney").text(Number($balance).toFixed(2))
-                if (Number($("#availableMoney").text()) > 0) {
-                    $("#availableMoney").css('color', "green");
-                }else{
-                    $("#availableMoney").css('color', 'red');
-                }
-            };
-        };
-
-
-    })
-
-
-	$("#subcategories").on('click', function(){
-		console.log($(this).val());
-	})
- 
-
-	$("#home-button").on('click', function(){
-		location.href = "index.html";
-	})
-
-
-
-	</script>
+	<script type="text/javascript" src="scripts/add-expense-ui.js"></script>
 </body>
 </html>

@@ -1,9 +1,7 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Chart Test</title>
-
-     
+    <title>Chart</title>
     <script type="text/javascript" src="scripts/local-storage-extensions.js"></script>
     <script type="text/javascript" src="scripts/storage.js"></script>
     <script type="text/javascript" src="scripts/budget.js"></script>
@@ -15,50 +13,6 @@
     <link rel="stylesheet" href="https://d10ajoocuyu32n.cloudfront.net/mobile/1.3.1/jquery.mobile-1.3.1.min.css">
     <script src="https://d10ajoocuyu32n.cloudfront.net/jquery-1.9.1.min.js"></script>
     <script src="https://d10ajoocuyu32n.cloudfront.net/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
-    <script type="text/javascript">
-
-        accounts.init();
-        categories.init();
-        expenses.init();
-        
-        //storage.clear();
-
-        //accounts.addAccount("credit", "Visa", -720.00, "16/09/2014");
-        //accounts.addAccount("credit", "Master Card", -12520.00, "16/11/2014");
-        //accounts.addAccount("debit", "Visa Electron", 12830.24, "24/11/2014");
-        //accounts.addAccount("debit", "Visa Electron FB", 12490.24, "24/11/2015");
-        //accounts.addAccount("debit", "Maestro", 26720.21, "24/11/2015");
-
-        //accounts.addFunds("cash", "", 1202.00, "11/05/2013", "regular salary", "salary");
-
-         //accounts.addFunds("credit", "Visa", 1720.00, "16/01/2013", "NA", "NA");
-         //accounts.addFunds("credit", "Visa", 1820.00, "16/02/2013", "NA", "NA");
-         //accounts.addFunds("credit", "Visa", 1720.00, "16/03/2013", "NA", "NA");
-         //accounts.addFunds("credit", "Visa", 1820.00, "16/04/2013", "NA", "NA");
-         //accounts.addFunds("credit", "Visa", 1920.00, "16/05/2013", "NA", "NA");
-         //accounts.addFunds("credit", "Visa", 1620.00, "16/06/2013", "NA", "NA");
-         //accounts.addFunds("credit", "Visa", 1720.00, "16/07/2013", "NA", "NA");
-         //accounts.addFunds("credit", "Visa", 1920.00, "16/08/2013", "NA", "NA");
-         //accounts.addFunds("credit", "Visa", 1820.00, "16/09/2013", "NA", "NA");
-         //accounts.addFunds("credit", "Visa", 1820.00, "16/10/2013", "NA", "NA");
-         //accounts.addFunds("credit", "Visa", 1920.00, "16/11/2013", "NA", "NA");
-         //accounts.addFunds("credit", "Visa", 1620.00, "16/12/2013", "NA", "NA");
-        
-         //expenses.addExpense("foodAndGroceries", "groceries", "27/01/2013", 442.66, "cash", "cash", "Jack Daniels bottle");
-         //expenses.addExpense("medical", "dentist", "20/02/2013", 100.00, "debit", "Visa Electron", "dentist");
-         //expenses.addExpense("foodAndGroceries", "fastFood", "13/03/2013", 141.66, "cash", "cash", "Subway sandwiches");
-         //expenses.addExpense("entertainment", "discos", "14/04/2013", 155.99, "credit", "Master Card", "Plazza");
-         //expenses.addExpense("foodAndGroceries", "groceries", "05/05/2013", 640.22, "credit", "Master Card", "Kaufland");
-         //expenses.addExpense("foodAndGroceries", "groceries", "27/06/2013", 422.66, "cash", "cash", "Jack Daniels bottle");
-         //expenses.addExpense("medical", "dentist", "20/07/2013", 101.00, "debit", "Visa Electron", "dentist");
-         //expenses.addExpense("foodAndGroceries", "fastFood", "13/08/2013", 144.66, "cash", "cash", "Subway sandwiches");
-         //expenses.addExpense("entertainment", "discos", "14/09/2013", 154.99, "credit", "Master Card", "Plazza");
-         //expenses.addExpense("foodAndGroceries", "groceries", "05/10/2013", 650.22, "credit", "Master Card", "Kaufland");
-         //expenses.addExpense("foodAndGroceries", "groceries", "27/11/2013", 422.66, "cash", "cash", "Jack Daniels bottle");
-         //expenses.addExpense("medical", "dentist", "20/12/2013", 120.00, "debit", "Visa Electron", "dentist");
-
-        
-    </script>
 </head>
 <body>
 <div data-role="page" id="page1">
@@ -84,73 +38,6 @@
     </div>
 
 </div>
-    <script type="text/javascript">
-
-        $data = location.search;
-        $data = $data.substring(1, $data.length);
-        $monthFrom = parseInt($data.split("&")[0]);
-        $monthTo = parseInt($data.split("&")[1]);
-        $year = $data.split("&")[2];
-
-        for (var i = $monthFrom; i <= $monthTo; i++) {
-            var month = "";
-
-            if (i < 10) {
-                month = "0" + i;
-            }
-            else {
-                month = "" + i;
-            }            
-
-            homeBudget.addExpenses(month, $year);
-            homeBudget.addIncomes(month, $year);
-            homeBudget.addBudget(month, $year);
-        }
-
-        // Currently is supported only the input ["Date", "Incomes", "Expenses", "Budget"]
-        DrawChart(["Date", "Incomes", "Expenses", "Budget"], $monthFrom, $monthTo, $year);
-
-        $('#homeButton').on('click', function() {
-            location.href = 'index.html';
-        })
-
-
-
-
-
-    function getData(){
-        $allCategories = storage.load("categories");
-        $data = [];
-        for($category in $allCategories){
-            $sum = expenses.getCategoryExpensesSum($category, $year, $monthFrom, $monthTo);
-            $item = [$category, Number($sum)];
-            $data.push($item);
-        }
-        return $data;
-      }
-
-      google.load('visualization', '1.0', {'packages':['corechart']});
-      google.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows(getData($year));
-
-        var options = {'title':' Expenses by category: ' + $monthFrom + ' ' + $year + ' - ' + $monthTo + ' ' + $year,
-                       'width':400,
-                       'height':300};
-
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div2'));
-        chart.draw(data, options);
-      }
-
- 
-
-
-       
-
-    </script>
+    <script type="text/javascript" src="scripts/chart-ui.js"></script>
 </body>
 </html>

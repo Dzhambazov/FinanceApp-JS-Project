@@ -17,14 +17,12 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <!--<link rel="stylesheet" href="/resources/demos/style.css" />-->
+    
     <script>
         $(function () {
             $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
         });
-         
     </script>
- 
-    
 
     <style>
         div > ul > li a > span {
@@ -34,7 +32,6 @@
             font-size: 14px;
             text-shadow: 1px 1px 0px green;
         }
- 
 
     @media (min-width:480px) {
         span.totalAccountsSum {
@@ -117,23 +114,6 @@
             </div>
         </div>
     </div>
-    <script>
-        accounts.init();
-        
-        $("#save-account-button").on('click', function(){
-            var type = $('#type').val();
-            var accName = $('#name').val();
-            var balance = $('#balance').val();
-            var date = $('#datepicker').val();
-
-            // check if successfully added!
-            accounts.addAccount(type, accName, Number(balance), date);
-            location.href="accounts.html";
-        })
-
-        $("#backButton").on('click', function(){
-            parent.history.back();
-        })
-    </script>
+    <script type="text/javascript" src="scripts/add-account-ui.js"></script>
 </body>
 </html>
